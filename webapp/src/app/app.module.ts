@@ -38,6 +38,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { initializeApp } from '@firebase/app';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyCjbrSpYksURfnS6Jr9Mfr1W69tZT2Jo9M',
+  authDomain: 'quote-collector-6943d.firebaseapp.com',
+  projectId: 'quote-collector-6943d',
+  storageBucket: 'quote-collector-6943d.appspot.com',
+  messagingSenderId: '56094761871',
+  appId: '1:56094761871:web:c2253a35ee5f52837361fa',
+  measurementId: 'G-GSWM81RHT8',
+};
+
+const app = initializeApp(firebaseConfig);
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, MenuComponent],
   imports: [

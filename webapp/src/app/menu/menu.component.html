@@ -1,3 +1,6 @@
 <mat-toolbar>
-  <button mat-button>Login</button>
+  <button mat-raises-button *ngIf="!user" (click)="loginWithGoogle()">
+    Login
+  </button>
+  <button mat-raises-button *ngIf="user" (click)="logOut()">Logout</button>
 </mat-toolbar>
