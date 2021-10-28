@@ -140,6 +140,54 @@ export class AuthService {
     return quotes;
   }
 
+  // async newLocation(location: SleepLocation): Promise<boolean> {
+  //   this.asyncOperation.next(true);
+  //   try {
+  //     // ? creates the location on the primary collection
+  //     const docRef = await addDoc(collection(this.db, 'locations'), location);
+  //     location.id = docRef.id;
+  //     // ? update location with its own id
+  //     await setDoc(doc(this.db, 'locations', location.id), location, {
+  //       merge: true,
+  //     });
+  //     // ? save it also to the user who created it
+  //     this.user.locations.push(location.id);
+  //     await setDoc(doc(this.db, 'users', this.user.uid), this.user, {
+  //       merge: true,
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //     this.asyncOperation.next(false);
+  //     return false;
+  //   }
+  //   this.asyncOperation.next(false);
+  //   return true;
+  // }
+
+  async newQuote(quote: Quote): Promise<boolean> {
+    this.asyncOperation.next(true);
+    try {
+      // ? creates the location on the primary collection
+      const docRef = await addDoc(collection(this.db, 'quotes'), quote);
+      //quote.id = docRef.id;
+      // ? update location with its own id
+      // await setDoc(doc(this.db, 'quotes', quote.id), quote, {
+      //   merge: true,
+      // });
+      // ? save it also to the user who created it
+      //this.user.quote.push(location.id);
+      // await setDoc(doc(this.db, 'users', this.user.uid), this.user, {
+      //   merge: true,
+      // });
+    } catch (err) {
+      console.error(err);
+      this.asyncOperation.next(false);
+      return false;
+    }
+    this.asyncOperation.next(false);
+    return true;
+  }
+
   // async getUserLocations(): Promise<SleepLocation[]> {
   //   this.asyncOperation.next(true);
   //   const locations: SleepLocation[] = await this.getLocations();

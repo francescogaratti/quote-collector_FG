@@ -48,7 +48,14 @@ export class HomeComponent implements OnInit {
     let a = this.authorFormControl.value;
     let t = this.quoteTextFormControl.value;
     let qqq: Quote = { author: a, text: t };
-    this.mockQuotes.push(qqq);
+
+    this.auth.newQuote(qqq).then((q) => {
+      if (q) {
+        console.info('quote saved');
+      } else {
+        console.error('an error occurred');
+      }
+    });
     this.dataSource = new MatTableDataSource(this.quotes);
   }
 
