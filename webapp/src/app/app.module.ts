@@ -37,6 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { initializeApp } from '@firebase/app';
 
@@ -88,6 +89,7 @@ const app = initializeApp(firebaseConfig);
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    ClipboardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

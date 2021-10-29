@@ -8,6 +8,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { AuthService } from '../services/auth.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 // const analytics = getAnalytics(app);
 
@@ -19,13 +20,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  mockQuotes: Quote[] = [
-    { author: 'fra', text: 'sono bellissimo' },
-    { author: 'cicca', text: 'non si scivola sulle bucce di patate' },
-    { author: 'la nonna', text: 'gheto magnà?' },
-  ];
-
   quotes: Quote[] = [];
+  clipboardCopy: string = '';
 
   authorFormControl: FormControl = new FormControl('', [Validators.required]);
   quoteTextFormControl: FormControl = new FormControl('', [
@@ -35,28 +31,44 @@ export class HomeComponent implements OnInit {
   dataSource = new MatTableDataSource(this.quotes);
 
   displayedColumns = ['author', 'text', 'action'];
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private clipboard: Clipboard) {}
 
   ngOnInit(): void {
     this.getQuotes();
   }
 
   copyQuote(quote: Quote) {
-    console.info(quote);
+    let craftQuote = `“${quote.text}”
+
+${quote.author}`;
+
+    this.clipboardCopy = craftQuote;
+    this.clipboard.copy(this.clipboardCopy);
+    console.info(this.clipboardCopy);
   }
   saveQuote() {
     let a = this.authorFormControl.value;
     let t = this.quoteTextFormControl.value;
-    let qqq: Quote = { author: a, text: t };
+    if (t.charAt(0) == '"' || t.charAt(0) == '“' || t.charAt(0) == `'`) {
+      t = t.slice(1);
+    }
+    if (
+      t.charAt(t.length - 1) == '"' ||
+      t.charAt(t.length - 1) == '”' ||
+      t.charAt(t.length - 1) == `'`
+    ) {
+      t = t.slice(0, -1);
+    }
 
-    this.auth.newQuote(qqq).then((q) => {
+    let quote: Quote = { author: a, text: t };
+    this.auth.newQuote(quote).then((q) => {
       if (q) {
         console.info('quote saved');
       } else {
         console.error('an error occurred');
       }
     });
-    this.dataSource = new MatTableDataSource(this.quotes);
+    this.getQuotes();
   }
 
   applyFilter(event: Event) {
@@ -79,12 +91,3 @@ async function getAllQuotes(db: any) {
   const quotesList = quoteSnapshot.docs.map((doc) => doc.data());
   return quotesList;
 }
-
-// getUserServices() {
-//   this.auth.getUserServices().then((services) => {
-//     let allServices: LocationService[] = [];
-//     services.forEach((service) => allServices.push(service));
-//     this.allCustomServices = allServices;
-//     console.info(this.allCustomServices);
-//   });
-// }

@@ -1,7 +1,15 @@
 table {
   width: 90%;
   margin: auto;
+  margin-top: auto;
 }
+
+.example-container {
+  height: 400px;
+  max-width: 100%;
+  overflow: auto;
+}
+
 card {
   width: 50%;
   margin: auto;
