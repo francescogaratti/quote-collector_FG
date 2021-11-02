@@ -18,21 +18,30 @@
     ></textarea>
   </mat-form-field>
 
-  <button mat-button color="primary" (click)="saveQuote()">Save Quote</button>
+  <button mat-button color="primary" (click)="saveQuote()">
+    Save New Quote
+  </button>
+  <mat-form-field>
+    <textarea
+      cdkTextareaAutosize
+      matInput
+      cols="40"
+      [value]="formattedQuote"
+    ></textarea>
+  </mat-form-field>
+  <button mat-button color="primary" (click)="saveQuoteOfTheDay()">
+    Save Quote of the Day
+  </button>
+  <button mat-button color="primary">Hide</button>
 </mat-card>
-
 <mat-card class="card">
   <mat-card-title>Search your quotes</mat-card-title>
 
   <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. ium"
-      #input
-    />
+    <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
+
   <div class="example-container mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Author Column -->

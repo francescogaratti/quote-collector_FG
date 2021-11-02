@@ -167,18 +167,7 @@ export class AuthService {
   async newQuote(quote: Quote): Promise<boolean> {
     this.asyncOperation.next(true);
     try {
-      // ? creates the location on the primary collection
       const docRef = await addDoc(collection(this.db, 'quotes'), quote);
-      //quote.id = docRef.id;
-      // ? update location with its own id
-      // await setDoc(doc(this.db, 'quotes', quote.id), quote, {
-      //   merge: true,
-      // });
-      // ? save it also to the user who created it
-      //this.user.quote.push(location.id);
-      // await setDoc(doc(this.db, 'users', this.user.uid), this.user, {
-      //   merge: true,
-      // });
     } catch (err) {
       console.error(err);
       this.asyncOperation.next(false);
