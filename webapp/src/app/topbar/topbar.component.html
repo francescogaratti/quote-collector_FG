@@ -1,17 +1,16 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
+  <textarea
+    cdkTextareaAutosize
+    matInput
+    class="textarea"
+    [value]="formattedQuote"
+  ></textarea>
   <span class="example-spacer"></span>
   <button
     mat-icon-button
     class="example-icon favorite-icon"
     aria-label="Example icon-button with heart icon"
+    (click)="saveQuoteOfTheDay()"
   >
     <mat-icon>save</mat-icon>
   </button>

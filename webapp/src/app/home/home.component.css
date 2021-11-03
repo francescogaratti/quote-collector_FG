@@ -4,13 +4,19 @@ table {
   margin-top: auto;
 }
 
-.example-container {
+.table-container {
   height: 400px;
   max-width: 100%;
   overflow: auto;
 }
 
-card {
-  width: 50%;
+.text-column {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.card {
+  width: 95%;
+  margin-top: auto;
   margin: auto;
 }

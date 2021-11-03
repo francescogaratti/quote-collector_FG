@@ -1,44 +1,12 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {} from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { Quote } from '@models/quotes';
 
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore/lite';
 import { AuthService } from '../services/auth.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-
-// const data = null;
-
-// const xhr = new XMLHttpRequest();
-// xhr.withCredentials = true;
-
-// xhr.addEventListener('readystatechange', function () {
-//   if (this.readyState === this.DONE) {
-//     console.log(this.responseText);
-//   }
-// });
-
-// xhr.open(
-//   'GET',
-//   'https://yusufnb-quotes-v1.p.rapidapi.com/widget/~einstein.json'
-// );
-// xhr.setRequestHeader('x-rapidapi-key', 'SIGN-UP-FOR-KEY');
-// xhr.setRequestHeader('x-rapidapi-host', 'yusufnb-quotes-v1.p.rapidapi.com');
-
-// xhr.send(data);
-let randomA = '';
-let randomQ = '';
-
-fetch('https://type.fit/api/quotes')
-  .then((response) => response.json())
-  .then((data) => {
-    var randomIndex = Math.floor(Math.random() * data.length);
-    //document.getElementById("set").innerHTML = data[randomIndex].text;
-    randomQ = data[randomIndex].text;
-  });
 
 @Component({
   selector: 'app-home',
@@ -49,8 +17,9 @@ export class HomeComponent implements OnInit {
   quotes: Quote[] = [];
   clipboardCopy: string = '';
   nowDate: Date = new Date();
-  quoteOfTheDay!: Quote;
   formattedQuote: string = '';
+  eee = false;
+
   visible = true;
 
   authorFormControl: FormControl = new FormControl('', [Validators.required]);
@@ -66,20 +35,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getQuotes();
     console.info(this.nowDate);
-
-    fetch('https://type.fit/api/quotes')
-      .then((response) => response.json())
-      .then((data) => {
-        let randomIndex = Math.floor(Math.random() * data.length);
-        //document.getElementById("set").innerHTML = data[randomIndex].text;
-        this.quoteOfTheDay = {
-          author: data[randomIndex].author,
-          text: data[randomIndex].text,
-          dateOfCreation: this.nowDate,
-        };
-        this.formatQuote(this.quoteOfTheDay);
-        console.info(this.quoteOfTheDay);
-      });
   }
 
   copyQuote(quote: Quote) {
@@ -122,18 +77,6 @@ export class HomeComponent implements OnInit {
     this.quoteTextFormControl.setValue(null);
   }
 
-  saveQuoteOfTheDay() {
-    let quote = this.quoteOfTheDay;
-    this.auth.newQuote(quote).then((q) => {
-      if (q) {
-        console.info('quote saved');
-      } else {
-        console.error('an error occurred');
-      }
-    });
-    this.getQuotes();
-  }
-
   applyFilter(event: Event) {
     this.dataSource.filter = (event.target as HTMLInputElement).value;
   }
@@ -166,14 +109,6 @@ export class HomeComponent implements OnInit {
       });
       return found;
     };
-  }
-
-  formatQuote(quote: Quote) {
-    if (!quote.author) {
-      quote.author = 'Anonymous';
-    }
-    this.formattedQuote = `${quote.text}   
-(${quote.author})`;
   }
 }
 
