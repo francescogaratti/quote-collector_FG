@@ -1,3 +1,9 @@
+<app-topbar
+  *ngIf="visible"
+  (closeTopbar)="visible = false"
+  (saveQuote)="saveQuoteOfTheDay()"
+></app-topbar>
+
 <mat-card>
   <mat-card-title>Create new quote</mat-card-title>
   <mat-form-field>

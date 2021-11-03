@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {} from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
   nowDate: Date = new Date();
   quoteOfTheDay!: Quote;
   formattedQuote: string = '';
+  visible = true;
 
   authorFormControl: FormControl = new FormControl('', [Validators.required]);
   quoteTextFormControl: FormControl = new FormControl('', [
@@ -79,9 +80,6 @@ export class HomeComponent implements OnInit {
         this.formatQuote(this.quoteOfTheDay);
         console.info(this.quoteOfTheDay);
       });
-    //this.dataSource.filterPredicate = this.filterMultipleKeywords;
-    //this.filterMultipleKeywords({ author: '1', text: 'ciao one' }, 'one two');
-    //this.dataSource.filterPredicate = this.filterObject;
   }
 
   copyQuote(quote: Quote) {
@@ -137,8 +135,7 @@ export class HomeComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = (event.target as HTMLInputElement).value;
   }
 
   sortQuotes() {
@@ -149,41 +146,26 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // filterObject(quote: Quote, filter: string): boolean {
-  //   return filter.split(' ').some(
-  //     item => quote.name.toLowerCase().indexOf(item) >= 0 || obj.symbol.toLowerCase() == item
-  //   );
-  // }
-
-  // filterMultipleKeywords(data: Quote, filter: string) {
-  //   const searchArray = filter.split(' ');
-  //   let filterMatch = true;
-  //   let prevIndex = 0;
-  //   searchArray.forEach((subString) => {
-  //     const strIndex = data.text.toLowerCase().indexOf(subString.toLowerCase());
-  //     console.info(strIndex);
-  //     if (strIndex == -1 || strIndex < prevIndex) {
-  //       filterMatch = false;
-  //     } else {
-  //       prevIndex = strIndex;
-  //     }
-  //   });
-  //   return filterMatch;
-  // }
-  // filterMultipleKeywords(data: Quote, filter: string) {
-  //   return filter
-  //     .split(' ')
-  //     .some((item) => data.text.toLowerCase().indexOf(item) >= 0);
-  //   //console.info(searchArray);
-  // }
-
-  getQuotes() {
-    this.auth.getQuotes().then((quotes) => {
+  async getQuotes() {
+    await this.auth.getQuotes().then((quotes) => {
       this.quotes = quotes;
       this.sortQuotes();
       this.dataSource = new MatTableDataSource(this.quotes);
       console.info(this.quotes);
     });
+    this.setCustomFilterPredicate();
+  }
+
+  setCustomFilterPredicate() {
+    this.dataSource.filterPredicate = (data: Quote, filter: string) => {
+      let keywords = filter.trim().toLowerCase().split(' ');
+      let content = JSON.stringify(data).toLowerCase();
+      let found = false;
+      keywords.forEach((keyword) => {
+        if (content.indexOf(keyword) != -1) found = true;
+      });
+      return found;
+    };
   }
 
   formatQuote(quote: Quote) {

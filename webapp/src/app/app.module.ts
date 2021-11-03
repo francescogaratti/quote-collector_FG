@@ -40,6 +40,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { initializeApp } from '@firebase/app';
+import { TopbarComponent } from './topbar/topbar.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCjbrSpYksURfnS6Jr9Mfr1W69tZT2Jo9M',
@@ -54,7 +55,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MenuComponent],
+  declarations: [AppComponent, HomeComponent, MenuComponent, TopbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
