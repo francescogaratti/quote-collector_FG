@@ -34,7 +34,7 @@
     Save New Quote
   </button>
 </mat-card>
-
+<br />
 <mat-card class="card">
   <mat-card-title>Search your quotes</mat-card-title>
   <mat-form-field appearance="standard">
@@ -42,8 +42,13 @@
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <div class="table-container mat-elevation-z8" *ngIf="quotes?.length">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="table-container mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8"
+      *ngIf="quotes?.length"
+    >
       <!-- Author Column -->
       <ng-container matColumnDef="author">
         <th mat-header-cell *matHeaderCellDef>Author</th>

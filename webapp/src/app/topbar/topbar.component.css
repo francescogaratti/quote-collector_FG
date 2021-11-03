@@ -4,5 +4,9 @@
 
 .textarea {
   columns: 40;
-  font-size: small;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-height: fit-content;
+  line-height: 140%;
+  font-size: medium;
 }
