@@ -16,4 +16,4 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_QUOTE_COLLECTOR_6943D }}"
           channelId: live
-          projectId: quote-collector_6943d
+          projectId: quote-collector-6943d
