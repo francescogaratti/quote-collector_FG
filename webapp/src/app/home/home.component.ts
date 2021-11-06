@@ -7,6 +7,7 @@ import { Quote } from '@models/quotes';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { AuthService } from '../services/auth.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,11 @@ export class HomeComponent implements OnInit {
   dataSource = new MatTableDataSource(this.quotes);
 
   displayedColumns = ['author', 'text', 'action'];
-  constructor(private auth: AuthService, private clipboard: Clipboard) {}
+  constructor(
+    private auth: AuthService,
+    private clipboard: Clipboard,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getQuotes();

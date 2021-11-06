@@ -40,7 +40,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { initializeApp } from '@firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import { TopbarComponent } from './topbar/topbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCjbrSpYksURfnS6Jr9Mfr1W69tZT2Jo9M',
@@ -53,6 +55,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, MenuComponent, TopbarComponent],
@@ -91,6 +94,7 @@ const app = initializeApp(firebaseConfig);
     MatSortModule,
     MatPaginatorModule,
     ClipboardModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
