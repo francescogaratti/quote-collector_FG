@@ -4,7 +4,6 @@ describe('Quote filter', () => {
   it('Filters by keywords', () => {
     cy.visit('/');
     cy.wait(1000);
-    //cy.get('[id=filter]').type('two');
     cy.get('[id=filter]').type('Michael Scott');
     cy.get('tr').contains(
       'td',
@@ -14,6 +13,5 @@ describe('Quote filter', () => {
     cy.get('[id=filter]').type('two three');
     cy.get('tr').contains('td', 'Two gust is megl che uan');
     cy.get('tr').contains('td', 'Three is a magic number');
-    //cy.wait(3000);
   });
 });

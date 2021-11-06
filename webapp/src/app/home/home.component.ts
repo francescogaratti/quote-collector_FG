@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   clipboardCopy: string = '';
   nowDate: Date = new Date();
   formattedQuote: string = '';
-  eee = false;
 
   visible = true;
 

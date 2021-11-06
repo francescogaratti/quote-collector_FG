@@ -1,6 +1,7 @@
 <mat-toolbar id="toolbar" style="height: fit-content">
   <textarea
     matInput
+    id="quote-of-the-day"
     class="textarea"
     [value]="formattedQuote"
     cdkTextareaAutosize
@@ -10,6 +11,7 @@
   <span class="example-spacer"></span>
   <button
     mat-icon-button
+    id="save-quote-of-the-day"
     aria-label="Example icon-button with heart icon"
     (click)="saveQuoteOfTheDay()"
   >
