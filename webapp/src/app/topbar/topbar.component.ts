@@ -1,6 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injectable,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Quote } from '@models/quotes';
 import { AuthService } from '../services/auth.service';
+import { UtilsService } from '../services/utils.service';
 
 export let qod = {};
 @Component({
@@ -25,7 +32,7 @@ export class TopbarComponent implements OnInit {
     this.refreshQuotes.emit();
   }
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private utils: UtilsService) {}
 
   ngOnInit(): void {
     fetch('https://type.fit/api/quotes')
@@ -49,8 +56,10 @@ export class TopbarComponent implements OnInit {
     this.auth.newQuote(quote).then((q) => {
       if (q) {
         console.info('quote saved');
+        this.utils.openSnackBar('Quote of the day saved!');
       } else {
         console.error('an error occurred');
+        this.utils.openSnackBar('Something went wrong.');
       }
     });
     this.refreshQ();

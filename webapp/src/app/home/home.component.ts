@@ -8,6 +8,7 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { AuthService } from '../services/auth.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -33,12 +34,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private clipboard: Clipboard,
-    private router: Router
+    private router: Router,
+    private utils: UtilsService
   ) {}
 
   ngOnInit(): void {
     this.getQuotes();
-    console.info(this.nowDate);
   }
 
   copyQuote(quote: Quote) {
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
     this.clipboardCopy = craftQuote;
     this.clipboard.copy(this.clipboardCopy);
     console.info(this.clipboardCopy);
+    this.utils.openSnackBar('Quote copied.');
   }
   saveQuote() {
     let a = '';
@@ -72,8 +74,10 @@ export class HomeComponent implements OnInit {
     this.auth.newQuote(quote).then((q) => {
       if (q) {
         console.info('quote saved');
+        this.utils.openSnackBar('Quote saved correctly!');
       } else {
         console.error('an error occurred');
+        this.utils.openSnackBar('Something went wrong.');
       }
     });
     this.getQuotes();
