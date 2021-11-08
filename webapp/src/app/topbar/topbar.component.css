@@ -10,3 +10,7 @@
   line-height: 140%;
   font-size: medium;
 }
+
+.topbar {
+  height: fit-content;
+}

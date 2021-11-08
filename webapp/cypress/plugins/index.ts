@@ -14,15 +14,14 @@ module.exports = (on, config) => {};
 //     },
 //   });
 // };
-
-// non funziaaaaa
+//non funziaaaaa
 //const clipboardy = require("clipboardy");
-// import clipboardy from "clipboardy";
+// import clipboardy from 'clipboardy';
 // module.exports = (
 //   on: Cypress.PluginEvents,
 //   config: Cypress.PluginConfigOptions
 // ) => {
-//   on("task", {
+//   on('task', {
 //     // Clipboard test plugin
 //     getClipboard: () => {
 //       const clipboard: string = clipboardy.readSync();
