@@ -4,11 +4,11 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
 })
-export class MenuComponent implements OnInit {
+export class WelcomeComponent implements OnInit {
   user!: User;
 
   constructor(private auth: AuthService, public router: Router) {
@@ -17,10 +17,6 @@ export class MenuComponent implements OnInit {
 
   loginWithGoogle() {
     this.auth.loginWithGoogle();
-  }
-
-  logout() {
-    this.auth.logOut();
   }
 
   ngOnInit(): void {}

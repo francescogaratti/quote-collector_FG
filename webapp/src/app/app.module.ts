@@ -43,6 +43,9 @@ import { initializeApp } from '@firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { TopbarComponent } from './topbar/topbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCjbrSpYksURfnS6Jr9Mfr1W69tZT2Jo9M',
@@ -58,7 +61,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MenuComponent, TopbarComponent],
+  declarations: [AppComponent, HomeComponent, MenuComponent, TopbarComponent, LoginComponent, ProgressBarComponent, WelcomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

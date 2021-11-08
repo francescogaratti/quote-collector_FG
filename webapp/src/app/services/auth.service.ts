@@ -24,9 +24,9 @@ import {
 } from 'firebase/firestore';
 import { Subject } from 'rxjs';
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// function sleep(ms: number) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +39,7 @@ export class AuthService {
   db = getFirestore(this.auth.app);
 
   user$: Subject<User> = new Subject<User>();
-  asyncOperation: Subject<boolean> = new Subject<boolean>(); // signal to the progress bar
+  asyncOperation: Subject<boolean> = new Subject<boolean>();
   logged: boolean | null = null;
 
   constructor(private router: Router) {
@@ -48,7 +48,7 @@ export class AuthService {
         // ? convertion from FirebaseUser to User
         const user: User = convertUser(firebaseUser);
         // ? check if the user is already present in the DB
-        // this.checkUserOnDB(this.user);
+        this.checkUserOnDB(user);
       } else this.logged = false;
     });
   }
@@ -57,27 +57,27 @@ export class AuthService {
 
   async grantAccess(): Promise<boolean> {
     if (this.logged == null) {
-      await sleep(100);
+      //await sleep(100);
       return this.grantAccess();
     } else return !!this.logged;
   }
 
-  // async checkUserOnDB(user: User) {
-  //   this.asyncOperation.next(true);
-  //   const usersCol = collection(this.db, 'users');
-  //   const usersSnapshot = await getDocs(usersCol);
-  //   let res = usersSnapshot.docs.find((doc) => doc.id == user.uid);
-  //   if (!res) {
-  //     console.info(user.name, 'not present in the DB');
-  //     console.info('saving now...');
-  //     setDoc(doc(this.db, 'users', user.uid), user);
-  //     this.user = user;
-  //   } else this.user = res ? (res.data() as User) : this.user;
-  //   this.logged = true;
-  //   // ? spread the user to listeners
-  //   this.asyncOperation.next(false);
-  //   this.user$.next(this.user);
-  // }
+  async checkUserOnDB(user: User) {
+    this.asyncOperation.next(true);
+    const usersCol = collection(this.db, 'users');
+    const usersSnapshot = await getDocs(usersCol);
+    let res = usersSnapshot.docs.find((doc) => doc.id == user.uid);
+    if (!res) {
+      console.info(user.name, 'not present in the DB');
+      console.info('saving now...');
+      setDoc(doc(this.db, 'users', user.uid), user);
+      this.user = user;
+    } else this.user = res ? (res.data() as User) : this.user;
+    this.logged = true;
+    // ? spread the user to listeners
+    this.asyncOperation.next(false);
+    this.user$.next(this.user);
+  }
 
   loginWithGoogle() {
     this.asyncOperation.next(true);
@@ -85,7 +85,7 @@ export class AuthService {
     signInWithPopup(this.auth, provider)
       .then(() => {
         this.asyncOperation.next(false);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/home');
       })
       .catch((error) => {
         this.asyncOperation.next(false);
@@ -117,18 +117,6 @@ export class AuthService {
         console.error('logout error');
       });
   }
-
-  /** LOCATIONS */
-
-  // async getLocations(): Promise<SleepLocation[]> {
-  //   this.asyncOperation.next(true);
-  //   const locaitonCollection = collection(this.db, 'locations');
-  //   const snapshot = await getDocs(locaitonCollection);
-  //   let locations: SleepLocation[] = [];
-  //   snapshot.docs.forEach((doc) => locations.push(doc.data() as SleepLocation));
-  //   this.asyncOperation.next(false);
-  //   return locations;
-  // }
 
   async getQuotes(): Promise<Quote[]> {
     this.asyncOperation.next(true);
