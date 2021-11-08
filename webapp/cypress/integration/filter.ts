@@ -1,6 +1,6 @@
 describe('Quote filter', () => {
   it('Filters by keywords', () => {
-    cy.visit('/');
+    cy.visit('/home');
     cy.wait(1000);
     cy.get('[id=filter]').type('Dwight Schrute');
     cy.get('tr').should('contain', 'Today, smoking is going to save lives.');

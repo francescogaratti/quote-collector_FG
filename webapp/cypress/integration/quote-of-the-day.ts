@@ -1,6 +1,6 @@
 describe('Save quote of the day', () => {
   it('Save suggested quote', () => {
-    cy.visit('/');
+    cy.visit('/home');
     cy.wait(1000);
     let quoteOfTheDay = '';
     let quoteText = '';

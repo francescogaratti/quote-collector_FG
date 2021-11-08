@@ -1,9 +1,9 @@
-let tester = 'tester';
+let tester = 'Tester';
 let testQuote = 'This is a test quote.';
 
 describe('Insert new quote', () => {
   it('Saves a new quote', () => {
-    cy.visit('/');
+    cy.visit('/home');
     cy.get('[id=insert_author]').type(tester);
     cy.get('[id=insert_text]').type(testQuote);
     cy.get('[id=save_quote]').click();
