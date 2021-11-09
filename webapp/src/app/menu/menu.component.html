@@ -1,16 +1,20 @@
 <mat-toolbar color="primary">
-  <h3>Welcome to Quote Collector!</h3>
-  <span class="fill-remaining-space"></span>
   <div *ngIf="user; then authenticated; else guest"></div>
   <ng-template #guest>
-    <button color="primary" mat-raised-button (click)="loginWithGoogle()">
+    <h3>Welcome to Quote Collector!</h3>
+    <button
+      color="primary"
+      mat-raised-button
+      (click)="loginWithGoogle()"
+      style="margin-left: auto"
+    >
       <i class="material-icons md-48">login</i>
       Login
     </button>
   </ng-template>
   <ng-template #authenticated>
-    <h3 style="font-size: small">{{ user.name }}</h3>
-    <button mat-button (click)="logout()">
+    <h3>Quote Collector | {{ user.name }}</h3>
+    <button mat-button (click)="logout()" style="margin-left: auto">
       <mat-icon matTooltip="Logout">exit_to_app</mat-icon>
     </button>
   </ng-template>
