@@ -24,7 +24,8 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return this.auth.grantAccess().then((res) => {
       if (!res) {
-        this.router.navigateByUrl('/login');
+        console.info(res);
+        this.router.navigateByUrl('/welcome');
         return false;
       }
       return true;

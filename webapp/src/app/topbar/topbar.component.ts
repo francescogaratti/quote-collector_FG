@@ -9,7 +9,6 @@ import { Quote } from '@models/quotes';
 import { AuthService } from '../services/auth.service';
 import { UtilsService } from '../services/utils.service';
 
-export let qod = {};
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -44,7 +43,6 @@ export class TopbarComponent implements OnInit {
           text: data[randomIndex].text,
           dateOfCreation: this.nowDate,
         };
-        qod = this.quoteOfTheDay;
 
         this.formatQuote(this.quoteOfTheDay);
       });

@@ -3,8 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 import {} from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { Quote } from '@models/quotes';
-
-import { collection, getDocs } from 'firebase/firestore/lite';
 import { AuthService } from '../services/auth.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Router } from '@angular/router';
@@ -118,11 +116,4 @@ export class HomeComponent implements OnInit {
       return found;
     };
   }
-}
-
-async function getAllQuotes(db: any) {
-  const quotesCol = collection(db, 'quotes');
-  const quoteSnapshot = await getDocs(quotesCol);
-  const quotesList = quoteSnapshot.docs.map((doc) => doc.data());
-  return quotesList;
 }
