@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Quote } from '@models/quotes';
@@ -18,9 +17,6 @@ import {
   getDocs,
   getFirestore,
   setDoc,
-  query,
-  where,
-  deleteDoc,
 } from 'firebase/firestore';
 import { Subject } from 'rxjs';
 
@@ -84,15 +80,8 @@ export class AuthService {
         this.asyncOperation.next(false);
         const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.error(
-          'Login error',
-          errorCode,
-          errorMessage,
-          email,
-          credential
-        );
+        console.error('Login error', errorCode, errorMessage, credential);
       });
   }
 

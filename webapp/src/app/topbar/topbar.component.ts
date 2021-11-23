@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Injectable,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Quote } from '@models/quotes';
 import { AuthService } from '../services/auth.service';
 import { UtilsService } from '../services/utils.service';
